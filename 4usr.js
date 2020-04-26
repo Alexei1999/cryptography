@@ -1,19 +1,12 @@
 const { Legendre, isPrime } = require('./src/simplicity')
 const { Fermats, Pollard_Rh1, Pollard_Rh0 } = require('./src/factorization')
+const { bench } = require('./src/bench')
 
 let a = 2537;
 let b = 1763;
 console.log('Variant 5')
 console.log(`a = ${a}; b = ${b}`)
 console.log()
-
-function bench(f, k) {
-    let start = Date.now();
-    for (let i = 0; i < 1000; i++) f(k);
-    return (Date.now() - start) / 1000;
-}
-
-console.log(isPrime(2551))
 
 let table = {
     'Functions': [`a = ${a}`, 'Received', 'Ellapsed(ms)', `b = ${b}`, 'Received', 'Ellapsed(ms)'],

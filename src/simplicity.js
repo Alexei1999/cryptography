@@ -89,6 +89,22 @@ let factorize = n => {
     if (n > 1) factors.push(n)
     return factors
 }
+
+function factorizen(n) {
+    let factors = []
+    let p = BigInt(2)
+    do {
+        while (n % p == 0 && n > 0) {
+            factors.push(p)
+            n = n / p
+        }
+        p++
+    }
+    while (p <= n / p)
+    if (n > 1) factors.push(n)
+    return factors
+}
+
 let GCD = (a, b) => {
     while (a != 0 && b != 0) {
         if (a > b) a %= b
@@ -112,4 +128,4 @@ function POWS(a, b, m) {
     return (MUL(POWS(a, b - 1, m), a, m)) % m
 }
 
-module.exports = { MillerRabbin, Strassen, Fermats, Legendre, Jakoby, isPrime, factorize, GCD, POWS }
+module.exports = { MillerRabbin, Strassen, Fermats, Legendre, Jakoby, isPrime, factorize, factorizen, GCD, POWS }
