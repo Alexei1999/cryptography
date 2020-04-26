@@ -23,7 +23,7 @@ let xs = factors.map((e, i) => {
 })
 
 let x = xs.reduce((max, s) => max = max > s.mod ? max : s.mod) + 1n
-while (!(!(x < p) || xs.every(s => x % s.mod == s.val))) x++;
+while ((x < p) && !xs.every(s => x % s.mod == s.val)) x++;
 console.log(`x = ${x}`)
 console.log('...')
 console.log(factors)
