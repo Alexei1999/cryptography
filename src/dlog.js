@@ -22,11 +22,11 @@ SilverPH = (p, a, b) => {
     let findMod = (q, x) => BigInt(rij[q].indexOf(rij[q].find(s => s == x) || rij[q].find(s => s == x < 0 ? x + p : x - p)))
     let xs = factors.map((e, i) => {
         let x0 = findMod(i, b ** ((p - 1n) / e.q) % p)
-        let x1 = findMod(i, BigInt((b * BigInt(Math.ceil(Number(a) ** Number(-x0))))) ** (p - 1n) / (e.q ** 2n) % p)
+        let x1 = findMod(i, BigInt(Number(b) * (Number(a) ** Number(-x0))) ** ((p - 1n) / (e.q ** 2n)) % p)
         let m = e.q ** e.a
-        return { val: (x0 + x1 * e.q) % m == 0 ? 1 : (x0 + x1 * e.q) % m, mod: m }
+        return { val: ((x0 + x1 * e.q) % m) ? ((x0 + x1 * e.q) % m) : 1, mod: m }
     })
-    let x = 2n
+    let x = 1n
     while ((x < p ** 2n) && !xs.every(s => x % s.mod == s.val)) x++;
     return x == p ** 2n - 1n ? 'Нет решений' : Number(x)
 }

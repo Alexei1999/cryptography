@@ -55,16 +55,15 @@ describe('dlog', () => {
         it('xs table from factors and rij should be [ { val: 2n, mod: 4n }, { val: 7n, mod: 9n } ]', () => {
             xs = factors.map((e, i) => {
                 let x0 = findMod(i, b ** ((p - 1n) / e.q) % p)
-                //this Math.ceil break alghoritm, but without ceil dont work bigInt, in js no bigDecimal
-                let x1 = findMod(i, BigInt(Number(a) ** Number(-x0) * Number(b)) ** (p - 1n) / (e.q ** 2n) % p)
+                let x1 = findMod(i, BigInt(Number(b) * (Number(a) ** Number(-x0))) ** ((p - 1n) / (e.q ** 2n)) % p)
                 let m = e.q ** e.a
-                return { val: (x0 + x1 * e.q) % m, mod: m }
+                return { val: ((x0 + x1 * e.q) % m) ? ((x0 + x1 * e.q) % m) : 1, mod: m }
             })
             expect(xs).toEqual([{ val: 2n, mod: 4n }, { val: 7n, mod: 9n }])
         })
-        it('solution of SilverPH(37, 2, 28) shuld be equal 35', () => {
+        it('solution of SilverPH(37, 2, 28) shuld be equal 34', () => {
             //wrong answer
-            expect(SilverPH(37, 2, 28)).toEqual(35)
+            expect(SilverPH(37, 2, 28)).toEqual(34)
         })
     })
 })
