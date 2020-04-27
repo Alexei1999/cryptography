@@ -17,9 +17,9 @@ function bench(f, p, a, b) {
 }
 
 let table = {
-    'Functions': [`a = ${a}`, `b = ${b}`, 'Received', 'Ellapsed(ms)'],
-    "Big-SmallSteps": [`p = ${p}`, , BGsteps(p, a, b), bench(BGsteps, p, a, b)],
-    "Pohlig–Hellman": [, , SilverPH(p, a, b), bench(SilverPH, p, a, b)]
+    'Functions': [`a = ${a}`, 'Received', 'Ellapsed(ms)'],
+    "Big-SmallSteps": [`b = ${b}`, BGsteps(p, a, b), bench(BGsteps, p, a, b)],
+    "Pohlig–Hellman": [`p = ${p}`, SilverPH(p, a, b), bench(SilverPH, p, a, b)]
 }
 
 console.table(table)

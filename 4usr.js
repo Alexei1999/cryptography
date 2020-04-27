@@ -1,4 +1,3 @@
-const { Legendre, isPrime } = require('./src/simplicity')
 const { Fermats, Pollard_Rh1, Pollard_Rh0 } = require('./src/factorization')
 
 let a = 2537;

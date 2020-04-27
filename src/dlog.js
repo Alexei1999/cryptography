@@ -1,4 +1,4 @@
-const { factorizen } = require('./simplicity')
+const { factorize } = require('./simplicity')
 
 BGsteps = (p, a, b) => {
     p = BigInt(p), a = BigInt(a), b = BigInt(b)
@@ -15,14 +15,14 @@ BGsteps = (p, a, b) => {
 SilverPH = (p, a, b) => {
     p = BigInt(p), a = BigInt(a), b = BigInt(b)
     let dups = []
-    let factors = factorizen(p - 1n)
+    let factors = factorize(p - 1n)
     factors.forEach(s => dups[s] = 1 + (dups[s] || 0))
     factors = [...dups.keys()].map(s => ({ q: BigInt(s), a: BigInt(dups[s] || 0) })).filter(s => s.a)
     let rij = Array(factors.length).fill().map((s, i) => Array(Number(factors[i].q)).fill()).map((s, i) => s.map((s, j) => a ** (BigInt(j) * (p - 1n) / factors[i].q) % p))
     let findMod = (q, x) => BigInt(rij[q].indexOf(rij[q].find(s => s == x) || rij[q].find(s => s == x < 0 ? x + p : x - p)))
     let xs = factors.map((e, i) => {
         let x0 = findMod(i, b ** ((p - 1n) / e.q) % p)
-        let x1 = findMod(i, BigInt(Number(b) * (Number(a) ** Number(-x0))) ** ((p - 1n) / (e.q ** 2n)) % p)
+        let x1 = findMod(i, BigInt(Math.ceil(Number(b) * (Number(a) ** Number(-x0)))) ** ((p - 1n) / (e.q ** 2n)) % p)
         let m = e.q ** e.a
         return { val: ((x0 + x1 * e.q) % m) ? ((x0 + x1 * e.q) % m) : 1, mod: m }
     })

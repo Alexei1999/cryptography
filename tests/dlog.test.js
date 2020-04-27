@@ -1,5 +1,5 @@
 const { BGsteps, SilverPH } = require('../src/dlog')
-const { factorizen } = require('../src/simplicity')
+const { factorize } = require('../src/simplicity')
 
 let h = 5
 describe('dlog', () => {
@@ -29,7 +29,7 @@ describe('dlog', () => {
 
         beforeAll(() => {
             let dups = []
-            factors = factorizen(p - 1n)
+            factors = factorize(p - 1n)
             factors.forEach(s => dups[s] = 1 + (dups[s] || 0))
             factors = [...dups.keys()].map(s => ({ q: BigInt(s), a: BigInt(dups[s] || 0) })).filter(s => s.a)
             rij = Array(factors.length).fill().map((s, i) => Array(Number(factors[i].q)).fill()).map((s, i) => s.map((s, j) => a ** (BigInt(j) * (p - 1n) / factors[i].q) % p))
@@ -43,7 +43,7 @@ describe('dlog', () => {
 
         it('factors from 36 shold be [ { q: 2n, a: 2n }, { q: 3n, a: 2n } ]', () => {
             let dups = []
-            let factors = factorizen(p - 1n)
+            let factors = factorize(p - 1n)
             factors.forEach(s => dups[s] = 1 + (dups[s] || 0))
             factors = [...dups.keys()].map(s => ({ q: BigInt(s), a: BigInt(dups[s] || 0) })).filter(s => s.a)
             expect(factors).toEqual([{ q: 2n, a: 2n }, { q: 3n, a: 2n }])
@@ -55,14 +55,13 @@ describe('dlog', () => {
         it('xs table from factors and rij should be [ { val: 2n, mod: 4n }, { val: 7n, mod: 9n } ]', () => {
             xs = factors.map((e, i) => {
                 let x0 = findMod(i, b ** ((p - 1n) / e.q) % p)
-                let x1 = findMod(i, BigInt(Number(b) * (Number(a) ** Number(-x0))) ** ((p - 1n) / (e.q ** 2n)) % p)
+                let x1 = findMod(i, BigInt(Math.ceil(Number(b) * (Number(a) ** Number(-x0)))) ** ((p - 1n) / (e.q ** 2n)) % p)
                 let m = e.q ** e.a
                 return { val: ((x0 + x1 * e.q) % m) ? ((x0 + x1 * e.q) % m) : 1, mod: m }
             })
             expect(xs).toEqual([{ val: 2n, mod: 4n }, { val: 7n, mod: 9n }])
         })
         it('solution of SilverPH(37, 2, 28) shuld be equal 34', () => {
-            //wrong answer
             expect(SilverPH(37, 2, 28)).toEqual(34)
         })
     })

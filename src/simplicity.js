@@ -76,32 +76,19 @@ function Jakoby(a, n) {
 let isPrime = a => ![...Array(a).keys()].some((e, i) => i >= 2 && a % e == 0)
 
 let factorize = n => {
+    let c = false
+    if (typeof n === 'bigint') { n = Number(n); c = true; }
     let factors = []
     let p = 2
     do {
         while (n % p == 0 && n > 0) {
-            factors.push(p)
-            n = n / p
-        }
-        p += 1
-    }
-    while (p <= n / p)
-    if (n > 1) factors.push(n)
-    return factors
-}
-
-function factorizen(n) {
-    let factors = []
-    let p = BigInt(2)
-    do {
-        while (n % p == 0 && n > 0) {
-            factors.push(p)
+            factors.push(c ? BigInt(p) : p)
             n = n / p
         }
         p++
     }
     while (p <= n / p)
-    if (n > 1) factors.push(n)
+    if (n > 1) factors.push(c ? BigInt(n) : n)
     return factors
 }
 
@@ -128,4 +115,4 @@ function POWS(a, b, m) {
     return (MUL(POWS(a, b - 1, m), a, m)) % m
 }
 
-module.exports = { MillerRabbin, Strassen, Fermats, Legendre, Jakoby, isPrime, factorize, factorizen, GCD, POWS }
+module.exports = { MillerRabbin, Strassen, Fermats, Legendre, Jakoby, isPrime, factorize, GCD, POWS }
