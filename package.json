@@ -1,11 +1,16 @@
 {
-  "name": "Crypto",
+  "name": "crypto",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "bigdecimal": "^0.6.1",
+    "bluebird": "^3.7.2",
+    "bsert": "^0.0.10",
+    "crypto-js": "^4.0.0",
+    "es6-error": "^4.1.1",
     "jest": "^25.3.0",
+    "jsbn": "^1.1.0",
     "tsc": "^1.20150623.0"
   },
   "devDependencies": {
