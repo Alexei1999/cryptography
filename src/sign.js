@@ -45,41 +45,41 @@ class DSA {
     }
 }
 
-class Schnorr {
-    constructor(domain, a) {
-        this.domain = domain
-        this.a = a
-    }
-    sign(m) {
-        let [p, q, g] = this.domain
-        let r, s;
-        do {
-            let k
-            do {
-                k = Math.ceil(Math.random() * (q - 2) + 1)
-                r = Number(BigInt(g) ** BigInt(k) % BigInt(p))
-            } while (r == 0)
-            console.log(`k == ${k}`)
-            s = (k + this.a * Hash(m + r)) % q
-        } while (s == 0)
-        return [r, s]
-    }
-    public = () => {
-        let [p, , g] = this.domain
-        return Number(BigInt(g) ** BigInt(this.a) % BigInt(p))
-    }
-    check(signature, m, A) {
-        let [p, q, g] = this.domain,
-            [r, s] = signature
-        signature.forEach(e => { if (!e || e >= q) return 'wrong signature' })
+// class Schnorr {
+//     constructor(domain, a) {
+//         this.domain = domain
+//         this.a = a
+//     }
+//     sign(m) {
+//         let [p, q, g] = this.domain
+//         let r, s;
+//         do {
+//             let k
+//             do {
+//                 k = Math.ceil(Math.random() * (q - 2) + 1)
+//                 r = Number(BigInt(g) ** BigInt(k) % BigInt(p))
+//             } while (r == 0)
+//             console.log(`k == ${k}`)
+//             s = (k + this.a * Hash(m + r)) % q
+//         } while (s == 0)
+//         return [r, s]
+//     }
+//     public = () => {
+//         let [p, , g] = this.domain
+//         return Number(BigInt(g) ** BigInt(this.a) % BigInt(p))
+//     }
+//     check(signature, m, A) {
+//         let [p, q, g] = this.domain,
+//             [r, s] = signature
+//         signature.forEach(e => { if (!e || e >= q) return 'wrong signature' })
 
-        let u1 = BigInt(g) ** BigInt(s),
-            u2 = BigInt(A) ** BigInt(Hash(m))
+//         let u1 = BigInt(g) ** BigInt(s),
+//             u2 = BigInt(A) ** BigInt(Hash(m))
 
-        let v = Number(u1 * u2 % BigInt(p))
-        console.log(`${v} == ${v}`)
-        return true//v == Hash(m + v)
-    }
-}
+//         let v = Number(u1 * u2 % BigInt(p))
+//         console.log(`${v} == ${v}`)
+//         return true//v == Hash(m + v)
+//     }
+// }
 
 module.exports = { inverse, DSA, Schnorr }
