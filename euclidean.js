@@ -17,16 +17,15 @@ const Euclidean = (a, b) => {
     let str = arr['1']
     while (Object.keys(arr).slice(1).some(s => str.match(new RegExp(`\\b${s}\\b`, 'g')))) {
         Object.keys(arr).slice(1).forEach(s => {
-            // console.log(res)
             res += str + '='
             str = str.replace(new RegExp(`\\b${s}\\b`, 'g'), `(${arr[s]})`)
         })
     }
     res = '1=' + res.split('\n').map(s => s.replace(/1\*/gm, '')).join('')
-    console.log('1=' + res)
-    return str
+    console.log(res)
+    // return str
 }
 
 let a = 107, b = 10200
-console.log(Euclidean(a, b))
+Euclidean(a, b)
 console.log('inverse element by module on the ring: ' + inverse(a, b))
