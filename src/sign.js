@@ -82,4 +82,4 @@ class DSA {
 //     }
 // }
 
-module.exports = { inverse, DSA, Schnorr }
+module.exports = { inverse, bezout, DSA }
